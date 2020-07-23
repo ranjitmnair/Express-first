@@ -10,29 +10,10 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(__dirname+'/public'));
 
-app.all('/dishes',(req,res,next)=>{
-    res.statusCode=200;
-    res.setHeader('Content-Type','text/plain');
-    next();
-});
+const dishRouter=require('./routes/dishRouter');//dishrouter route added
 
-app.get('/dishes',(req,res,next)=>{
-    res.end('Will send all dishes to you.');
-});
+app.use('/dishes',dishRouter);
 
-app.post('/dishes',(req,res,next)=>{
-    res.end('Will add the dish: '+req.body.name+' with details: '+req.body.description) 
-})
-
-
-app.put('/dishes',(req,res,next)=>{
-    res.statusCode=403;
-    res.end('Method not supported'); 
-})
-
-app.delete('/dishes',(req,res,next)=>{
-    res.end('Deleting all dishes'); 
-})
 
 ///dish id
 
